@@ -3,57 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Exam Performance Prediction</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Predict Your Performance</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(to bottom, #43cea2, #185a9d);
-            color: #ffffff;
-            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff99cc, #66ccff); /* Updated background to match */
+            font-family: 'Poppins', sans-serif;
         }
-        .container {
-            margin-top: 5%;
+        .navbar, .footer {
+            background-color: #283593; /* Navbar and footer color */
+        }
+        .btn-primary {
+            background-color: #ff4081; /* Button color */
+            border-color: #ff4081; /* Button border color */
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #ff1f61; /* Button hover color */
+            border-color: #ff1f61; /* Button hover border color */
+        }
+        h2 {
+            color: #283593; /* Title color */
         }
         .card {
-            background-color: rgba(255, 255, 255, 0.9);
-            border: none;
-            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            border-radius: 15px;
             padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .form-label {
-            font-weight: bold;
+            font-weight: 600;
         }
-        .btn-custom {
-            background-color: #43cea2;
-            border: none;
-            color: #ffffff;
+        .mb-3 {
+            margin-bottom: 20px;
         }
-        .btn-custom:hover {
-            background-color: #185a9d;
-            color: #ffffff;
+        footer {
+            padding: 20px 0;
+            color: white;
+        }
+        .footer p {
+            margin: 0;
+        }
+        .tooltip-inner {
+            background-color: #ff4081;
+            color: white;
+        }
+        .progress-bar {
+            background-color: #ff4081;
+        }
+        .alert-success {
+            background-color: #e8f5e9;
+            color: #388e3c;
+            border-color: #c8e6c9;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="card mx-auto" style="max-width: 800px;">
-            <h1 class="text-center mb-4">Student Exam Performance Predictor</h1>
-            <p class="text-center">Fill in the details below to predict your performance!</p>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Performance Predictor</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/predictdata">Predict</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <h2 class="text-center">Predict Your Student Exam Performance</h2>
+        <p class="lead text-center">Fill in the details below to predict your performance.</p>
+        
+        <div class="card p-4">
             <form action="{{ url_for('predict_datapoint') }}" method="post">
-                <!-- Gender -->
                 <div class="mb-3">
                     <label class="form-label">Gender</label>
-                    <select class="form-select" name="gender" required>
+                    <select class="form-control" name="gender" required data-bs-toggle="tooltip" data-bs-placement="right" title="Select your gender">
                         <option selected disabled value="">Select your Gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                     </select>
                 </div>
-                <!-- Ethnicity -->
+
                 <div class="mb-3">
-                    <label class="form-label">Race/Ethnicity</label>
-                    <select class="form-select" name="ethnicity" required>
+                    <label class="form-label">Race or Ethnicity</label>
+                    <select class="form-control" name="ethnicity" required data-bs-toggle="tooltip" data-bs-placement="right" title="Select your race or ethnicity">
                         <option selected disabled value="">Select Ethnicity</option>
                         <option value="group A">Group A</option>
                         <option value="group B">Group B</option>
@@ -62,10 +108,10 @@
                         <option value="group E">Group E</option>
                     </select>
                 </div>
-                <!-- Parental Education -->
+
                 <div class="mb-3">
                     <label class="form-label">Parental Level of Education</label>
-                    <select class="form-select" name="parental_level_of_education" required>
+                    <select class="form-control" name="parental_level_of_education" required data-bs-toggle="tooltip" data-bs-placement="right" title="Select the highest level of education attained by your parents">
                         <option selected disabled value="">Select Parent Education</option>
                         <option value="associate's degree">Associate's Degree</option>
                         <option value="bachelor's degree">Bachelor's Degree</option>
@@ -75,49 +121,58 @@
                         <option value="some high school">Some High School</option>
                     </select>
                 </div>
-                <!-- Lunch -->
+
                 <div class="mb-3">
                     <label class="form-label">Lunch Type</label>
-                    <select class="form-select" name="lunch" required>
+                    <select class="form-control" name="lunch" required data-bs-toggle="tooltip" data-bs-placement="right" title="Select the type of lunch you usually have">
                         <option selected disabled value="">Select Lunch Type</option>
                         <option value="free/reduced">Free/Reduced</option>
                         <option value="standard">Standard</option>
                     </select>
                 </div>
-                <!-- Test Preparation Course -->
+
                 <div class="mb-3">
                     <label class="form-label">Test Preparation Course</label>
-                    <select class="form-select" name="test_preparation_course" required>
-                        <option selected disabled value="">Select Test Preparation</option>
+                    <select class="form-control" name="test_preparation_course" required data-bs-toggle="tooltip" data-bs-placement="right" title="Select if you have completed any test preparation course">
+                        <option selected disabled value="">Select Test Course</option>
                         <option value="none">None</option>
                         <option value="completed">Completed</option>
                     </select>
                 </div>
-                <!-- Writing Score -->
+
                 <div class="mb-3">
-                    <label class="form-label">Writing Score (out of 100)</label>
-                    <input type="number" class="form-control" name="writing_score" placeholder="Enter your Writing Score" min="0" max="100" required>
+                    <label class="form-label">Writing Score (0-100)</label>
+                    <input class="form-control" type="number" name="writing_score" min="0" max="100" required data-bs-toggle="tooltip" data-bs-placement="right" title="Enter your writing score between 0 and 100" />
                 </div>
-                <!-- Reading Score -->
+
                 <div class="mb-3">
-                    <label class="form-label">Reading Score (out of 100)</label>
-                    <input type="number" class="form-control" name="reading_score" placeholder="Enter your Reading Score" min="0" max="100" required>
+                    <label class="form-label">Reading Score (0-100)</label>
+                    <input class="form-control" type="number" name="reading_score" min="0" max="100" required data-bs-toggle="tooltip" data-bs-placement="right" title="Enter your reading score between 0 and 100" />
                 </div>
-                <!-- Submit Button -->
-                <div class="text-center">
-                    <button type="submit" class="btn btn-custom btn-lg">Predict Your Math Score</button>
+
+                <div class="mb-3 text-center">
+                    <button type="submit" class="btn btn-primary btn-lg">Predict Your Math Score</button>
                 </div>
             </form>
-            <!-- Results -->
-            {% if results %}
-            <div class="alert alert-success mt-4" role="alert">
-                <h4 class="alert-heading">Prediction Result</h4>
-                <p>Your predicted math score is: <strong>{{ results }}</strong></p>
-            </div>
-            {% endif %}
         </div>
+
+        {% if results %}
+        <div class="alert alert-success text-center mt-4">
+            <h3>Your predicted math score is: <strong>{{ results }}</strong></h3>
+        </div>
+        {% endif %}
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <footer class="footer text-center py-3">
+        <p>© 2024 Performance Predictor | Designed for students</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
 </body>
 </html>
