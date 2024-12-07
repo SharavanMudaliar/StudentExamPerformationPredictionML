@@ -10,6 +10,9 @@
         body {
             background: linear-gradient(135deg, #ff99cc, #66ccff); /* Updated background to match */
             font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Set minimum height to fill the viewport */
         }
         .navbar, .footer {
             background-color: #283593; /* Navbar and footer color */
@@ -23,20 +26,16 @@
             background-color: #ff1f61; /* Button hover color */
             border-color: #ff1f61; /* Button hover border color */
         }
-        h2 {
+        h1 {
             color: #283593; /* Title color */
         }
-        .card {
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-            border-radius: 15px;
-            padding: 20px;
-        }
-        .form-label {
-            font-weight: 600;
-        }
-        .mb-3 {
-            margin-bottom: 20px;
+        .container {
+            flex: 1; /* Allow the container to grow and take up available space */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center content vertically */
+            align-items: center; /* Center content horizontally */
+            text-align: center; /* Center text */
         }
         footer {
             padding: 20px 0;
@@ -90,13 +89,15 @@
         <p>Our primary goal is to assist students in understanding their potential exam performance and to help educators identify areas where students may need additional support.</p>
         <h2>How It Works</h2>
         <p>Users simply input relevant data such as study hours, previous scores, and other factors. The tool then processes this data to provide a predicted score, allowing students to plan their study strategies accordingly.</p>
-        <h2>Creators</h2>
-        <p>Sharavan, Krupadesh, Rushikesh</p>
+        <h2>Creator</h2>
+        <p>Sharavan</p>
         <a href="/predictdata" class="btn btn-primary btn-lg mt-3">Start Prediction</a>
     </div>
 
-    <footer class="footer text-center py-3">
-        <p>© 2024 Performance Predictor | Designed for students</p>
+    <footer class="footer">
+        <div class="text-center">
+            <p>© 2024 Performance Predictor | Designed to help students</p>
+        </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
